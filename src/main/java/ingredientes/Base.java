@@ -4,6 +4,8 @@ public class Base implements Ingrediente,Comparable<Ingrediente>{
 
     private TipoBase tipoBase;
 
+
+
     public Base(TipoBase tipoBase) {
         this.tipoBase = tipoBase;
     }

@@ -2,36 +2,71 @@ package pedido;
 
 import ingredientes.Ingrediente;
 
-import java.util.TreeMap;
+import java.util.*;
 
-public class Cardapio {
+public class Cardapio{
+
+
+
+    public Cardapio(TreeMap<Ingrediente, Double> precos) {
+
+        this.precos = precos;
+    }
+
     private TreeMap<Ingrediente,Double> precos;
 
     public Cardapio(){
-        this.precos= new TreeMap<>();
+        this.precos= new TreeMap<Ingrediente, Double>(new sortKey());
     }
 
+
     public TreeMap<Ingrediente, Double> getPrecos(){
-        return this.precos;
+
+        return precos;
     }
 
     public void adicionarIngrediente(Ingrediente ingrediente,Double preco){
-        //TODO
+        if(preco > 0){
+            precos.put(ingrediente, preco);
+        }else{
+            throw new IllegalArgumentException("Preco invalido.");
+        }
+
     }
 
     public boolean atualizarIngrediente(Ingrediente ingrediente,Double preco){
-       //TODO
-        return true;
+        if(precos.containsKey(ingrediente)){
+            if(preco > 0){
+                precos.put(ingrediente, preco);
+                return true;
+            }else{
+                throw new IllegalArgumentException("Preco invalido.");
+            }
+        }else{
+
+            throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
+        }
     }
 
     public boolean removerIngrediente(Ingrediente ingrediente){
-       //TODO
-        return true;
+        if(precos.containsKey(ingrediente)){
+            precos.remove(ingrediente);
+            return true;
+        }else{
+
+            throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
+        }
+
     }
 
     public Double buscarPreco(Ingrediente ingrediente){
-        //TODO
-        return 0.0;
+        if(precos.containsKey(ingrediente)){
+            return precos.get(ingrediente);
+        }else{
+
+            throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
+        }
+
     }
 
     @Override
