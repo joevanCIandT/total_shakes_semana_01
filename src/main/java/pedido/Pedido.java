@@ -33,13 +33,13 @@ public class Pedido{
     public double calcularTotal(Cardapio cardapio){
 
         double totalPedido = 0.0;
+        double totalItem;
+        double totalAdicional;
+        double totalBase;
 
         for(ItemPedido item : this.getItens()) {
-            double totalItem = 0.0;
-            double totalAdicional;
             Base base = item.getShake().getBase();
-            double totalBase = (cardapio.buscarPreco(base) * item.getShake().getTipoTamanho().multiplicador);
-
+            totalBase = (cardapio.buscarPreco(base) * item.getShake().getTipoTamanho().multiplicador);
             if(item.getShake().getAdicionais().isEmpty()){
                 totalPedido = totalPedido +  totalBase * item.getQuantidade();
             }else{
@@ -50,7 +50,6 @@ public class Pedido{
                 totalItem = totalBase + totalAdicional;
                 totalPedido = totalItem * item.getQuantidade() + totalPedido;
             }
-
         }
         return totalPedido;
     }
@@ -61,9 +60,9 @@ public class Pedido{
         for(ItemPedido item: this.getItens()){
             teste = verificaItensIguais(item, itemPedidoAdicionado);
             if(teste){
-                count++;
                 int valor = item.getQuantidade() + itemPedidoAdicionado.getQuantidade();
                 item.setQuantidade(valor);
+                count++;
             }
         }
        if(count == 0){
@@ -72,7 +71,6 @@ public class Pedido{
     }
 
     private boolean compareAdicionais(List<Adicional> adicionais1, List<Adicional> adicionais2) {
-
         if(adicionais1 == null && adicionais2 == null){
             return true;
         } else if (adicionais1 == null && adicionais2 != null || adicionais1 != null && adicionais2 == null ){
@@ -97,17 +95,13 @@ public class Pedido{
     }
 
     public void removeItemPedido(ItemPedido itemPedidoRemovido) {
-
         if(verificaSeItemExistePedido(itemPedidoRemovido)){
-
         }else{
             throw new IllegalArgumentException("Item nao existe no pedido.");
         }
-
     }
 
     private boolean verificaSeItemExistePedido(ItemPedido itemPedidoRemovido) {
-
         boolean teste;
         for(ItemPedido item: this.getItens()){
             teste = verificaItensIguais(item, itemPedidoRemovido);
@@ -120,25 +114,19 @@ public class Pedido{
                     item.setQuantidade(count - 1);
                     return true;
                 }
-
             }
         }
-
         return false;
     }
 
     public boolean verificaItensIguais(ItemPedido item, ItemPedido novoItem) {
-
         boolean base = (compareIngredientes(item.getShake().getBase(), novoItem.getShake().getBase()));
         boolean fruta = compareIngredientes(item.getShake().getFruta(), novoItem.getShake().getFruta());
         boolean topping = compareIngredientes(item.getShake().getTopping(), novoItem.getShake().getTopping());
-
         boolean adicionais = compareAdicionais(item.getShake().getAdicionais(), novoItem.getShake().getAdicionais());
-
         if(base && fruta && topping && adicionais) {
             return true;
         }
-
         return false;
     }
 

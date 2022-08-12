@@ -6,8 +6,6 @@ import java.util.*;
 
 public class Cardapio{
 
-
-
     public Cardapio(TreeMap<Ingrediente, Double> precos) {
 
         this.precos = precos;
@@ -16,12 +14,11 @@ public class Cardapio{
     private TreeMap<Ingrediente,Double> precos;
 
     public Cardapio(){
-        this.precos= new TreeMap<Ingrediente, Double>(new sortKey());
+        this.precos= new TreeMap<>(new comparatorIngrediente());
     }
 
 
     public TreeMap<Ingrediente, Double> getPrecos(){
-
         return precos;
     }
 
@@ -31,7 +28,6 @@ public class Cardapio{
         }else{
             throw new IllegalArgumentException("Preco invalido.");
         }
-
     }
 
     public boolean atualizarIngrediente(Ingrediente ingrediente,Double preco){
@@ -53,20 +49,16 @@ public class Cardapio{
             precos.remove(ingrediente);
             return true;
         }else{
-
             throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
         }
-
     }
 
     public Double buscarPreco(Ingrediente ingrediente){
         if(precos.containsKey(ingrediente)){
             return precos.get(ingrediente);
         }else{
-
             throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
         }
-
     }
 
     @Override
