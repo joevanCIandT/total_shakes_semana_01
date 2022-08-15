@@ -38,37 +38,40 @@ public class Pedido{
         double totalBase;
 
         for(ItemPedido item : this.getItens()) {
-            Base base = item.getShake().getBase();
-            totalBase = (cardapio.buscarPreco(base) * item.getShake().getTipoTamanho().multiplicador);
-            if(item.getShake().getAdicionais().isEmpty()){
-                totalPedido = totalPedido +  totalBase * item.getQuantidade();
-            }else{
-                totalAdicional = 0.0;
-                for(Adicional adicional : item.getShake().getAdicionais()){
-                    totalAdicional = totalAdicional + cardapio.buscarPreco(adicional);
-                }
-                totalItem = totalBase + totalAdicional;
-                totalPedido = totalItem * item.getQuantidade() + totalPedido;
-            }
+            totalBase = calculaTotalBase(item, cardapio);
+            totalAdicional = calculaTotalAdicional(item, cardapio);
+            totalItem = totalBase + totalAdicional;
+            totalPedido = totalItem * item.getQuantidade() + totalPedido;
         }
         return totalPedido;
     }
 
+    private double calculaTotalAdicional(ItemPedido item, Cardapio cardapio) {
+        double totalAdicional = 0.0;
+        for(Adicional adicional : item.getShake().getAdicionais()){
+            totalAdicional = totalAdicional + cardapio.buscarPreco(adicional);
+        }
+
+        return totalAdicional;
+    }
+
+    private double calculaTotalBase(ItemPedido item, Cardapio cardapio) {
+        var base = item.getShake().getBase();
+        return (cardapio.buscarPreco(base) * item.getShake().getTipoTamanho().multiplicador);
+    }
+
     public void adicionarItemPedido(ItemPedido itemPedidoAdicionado){
-        int count = 0;
-        boolean teste;
         for(ItemPedido item: this.getItens()){
-            teste = verificaItensIguais(item, itemPedidoAdicionado);
+            boolean teste = verificaItensIguais(item, itemPedidoAdicionado);
             if(teste){
                 int valor = item.getQuantidade() + itemPedidoAdicionado.getQuantidade();
                 item.setQuantidade(valor);
-                count++;
+                return;
             }
         }
-       if(count == 0){
-           itens.add(itemPedidoAdicionado);
-       }
+        itens.add(itemPedidoAdicionado);
     }
+
 
     private boolean compareAdicionais(List<Adicional> adicionais1, List<Adicional> adicionais2) {
         if(adicionais1 == null && adicionais2 == null){
@@ -124,6 +127,7 @@ public class Pedido{
         boolean fruta = compareIngredientes(item.getShake().getFruta(), novoItem.getShake().getFruta());
         boolean topping = compareIngredientes(item.getShake().getTopping(), novoItem.getShake().getTopping());
         boolean adicionais = compareAdicionais(item.getShake().getAdicionais(), novoItem.getShake().getAdicionais());
+
         if(base && fruta && topping && adicionais) {
             return true;
         }

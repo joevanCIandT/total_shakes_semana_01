@@ -4,7 +4,7 @@ import ingredientes.Adicional;
 import ingredientes.Base;
 import ingredientes.Fruta;
 import ingredientes.Topping;
-import pedido.comparatorAdicional;
+import comparator.comparatorAdicional;
 
 import java.util.ArrayList;
 import java.util.Collections;

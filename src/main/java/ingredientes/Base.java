@@ -1,5 +1,7 @@
 package ingredientes;
 
+import tipo.TipoBase;
+
 public class Base implements Ingrediente,Comparable<Ingrediente>{
 
     private TipoBase tipoBase;

@@ -1,5 +1,7 @@
 package ingredientes;
 
+import tipo.TipoTopping;
+
 public class Topping implements Adicional,Comparable<Ingrediente> {
     private TipoTopping tipoTopping;
 

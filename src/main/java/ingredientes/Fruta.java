@@ -1,5 +1,7 @@
 package ingredientes;
 
+import tipo.TipoFruta;
+
 public class Fruta  implements Adicional,Comparable<Ingrediente>{
      private TipoFruta tipoFruta;
 

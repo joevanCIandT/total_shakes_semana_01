@@ -1,5 +1,8 @@
 package pedido;
 
+import comparator.comparatorIngrediente;
+import exceptions.IngredienteException;
+import exceptions.PrecoInvalidoException;
 import ingredientes.Ingrediente;
 
 import java.util.*;
@@ -26,7 +29,7 @@ public class Cardapio{
         if(preco > 0){
             precos.put(ingrediente, preco);
         }else{
-            throw new IllegalArgumentException("Preco invalido.");
+            throw new PrecoInvalidoException();
         }
     }
 
@@ -36,11 +39,11 @@ public class Cardapio{
                 precos.put(ingrediente, preco);
                 return true;
             }else{
-                throw new IllegalArgumentException("Preco invalido.");
+                throw new PrecoInvalidoException();
             }
         }else{
 
-            throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
+            throw new IngredienteException();
         }
     }
 
@@ -49,7 +52,7 @@ public class Cardapio{
             precos.remove(ingrediente);
             return true;
         }else{
-            throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
+            throw new IngredienteException();
         }
     }
 
@@ -57,7 +60,7 @@ public class Cardapio{
         if(precos.containsKey(ingrediente)){
             return precos.get(ingrediente);
         }else{
-            throw new IllegalArgumentException("Ingrediente nao existe no cardapio.");
+            throw new IngredienteException();
         }
     }
 

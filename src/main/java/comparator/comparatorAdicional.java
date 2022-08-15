@@ -1,4 +1,4 @@
-package pedido;
+package comparator;
 
 import ingredientes.Adicional;
 import ingredientes.Ingrediente;

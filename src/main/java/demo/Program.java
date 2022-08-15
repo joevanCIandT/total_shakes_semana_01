@@ -1,5 +1,6 @@
 package demo;
 
+import extras.Main;
 import ingredientes.*;
 import pedido.Cardapio;
 import pedido.Cliente;
@@ -7,6 +8,9 @@ import pedido.ItemPedido;
 import pedido.Pedido;
 import produto.Shake;
 import produto.TipoTamanho;
+import tipo.TipoBase;
+import tipo.TipoFruta;
+import tipo.TipoTopping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +20,12 @@ public class Program {
         Cliente cliente = new Cliente(1,"Pedro","pedro@email.com");
         Cardapio cardapio = new Cardapio();
 
-        Base sorvete = new Base(TipoBase.Sorvete);
-        Base iogurte = new Base(TipoBase.Iorgute);
-        Fruta banana = new Fruta(TipoFruta.Banana);
-        Fruta morango = new Fruta(TipoFruta.Morango);
-        Topping mel = new Topping(TipoTopping.Mel);
-        Topping aveia = new Topping(TipoTopping.Aveia);
+        Base sorvete = new Base(TipoBase.SORVETE);
+        Base iogurte = new Base(TipoBase.IOGURTE);
+        Fruta banana = new Fruta(TipoFruta.BANANA);
+        Fruta morango = new Fruta(TipoFruta.MORANGO);
+        Topping mel = new Topping(TipoTopping.MEL);
+        Topping aveia = new Topping(TipoTopping.AVEIA);
 
         cardapio.adicionarIngrediente(sorvete,10.0);
         cardapio.adicionarIngrediente(iogurte,8.0);
@@ -34,6 +38,9 @@ public class Program {
 
         ItemPedido itemPedido1 = new ItemPedido(shake1,1);
         Pedido pedido1 = new Pedido(1, new ArrayList<>(List.of(itemPedido1)),cliente);
+
+        Main main = new Main();
+
 
         System.out.println("::::: Cardapio ShakeCIT");
         System.out.println(cardapio.getPrecos());
@@ -87,6 +94,12 @@ public class Program {
         Cliente cliente2 = Cliente.desserializarCliente(1);
         System.out.println(cliente2);
         System.out.println(cliente.equals(cliente2));
+
+        main.adicionaPedido(pedido1);
+        main.adicionaPedido(pedido2);
+        main.adicionaPedido(pedido3);
+        main.geraArquivoPedidos();
+
 
     }
 }
