@@ -74,19 +74,13 @@ public class Pedido{
 
 
     private boolean compareAdicionais(List<Adicional> adicionais1, List<Adicional> adicionais2) {
-        if(adicionais1 == null && adicionais2 == null){
-            return true;
-        } else if (adicionais1 == null && adicionais2 != null || adicionais1 != null && adicionais2 == null ){
-            return false;
-        } else{
-            List<Adicional> sortedList1 = adicionais1.stream().sorted().collect(Collectors.toList());
-            List<Adicional> sortedList2 = adicionais2.stream().sorted().collect(Collectors.toList());
+        List<Adicional> sortedList1 = adicionais1.stream().sorted().collect(Collectors.toList());
+        List<Adicional> sortedList2 = adicionais2.stream().sorted().collect(Collectors.toList());
 
-            if(sortedList1.equals(sortedList2)){
-                return true;
-            }else{
-                return false;
-            }
+        if(sortedList1.equals(sortedList2)){
+            return true;
+        }else{
+            return false;
         }
     }
 
