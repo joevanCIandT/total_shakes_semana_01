@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 
 public class Pedido{
 
-    private int id;
-    private  ArrayList<ItemPedido> itens;
-    private Cliente cliente;
+    private final int id;
+    private final ArrayList<ItemPedido> itens;
+    private final Cliente cliente;
 
     public Pedido(int id, ArrayList<ItemPedido> itens,Cliente cliente){
         this.id = id;

@@ -10,11 +10,10 @@ import java.util.*;
 public class Cardapio{
 
     public Cardapio(TreeMap<Ingrediente, Double> precos) {
-
         this.precos = precos;
     }
 
-    private TreeMap<Ingrediente,Double> precos;
+    private final TreeMap<Ingrediente,Double> precos;
 
     public Cardapio(){
         this.precos= new TreeMap<>(new comparatorIngrediente());
@@ -33,24 +32,21 @@ public class Cardapio{
         }
     }
 
-    public boolean atualizarIngrediente(Ingrediente ingrediente,Double preco){
+    public void atualizarIngrediente(Ingrediente ingrediente, Double preco){
         if(precos.containsKey(ingrediente)){
             if(preco > 0){
                 precos.put(ingrediente, preco);
-                return true;
             }else{
                 throw new PrecoInvalidoException();
             }
         }else{
-
             throw new IngredienteException();
         }
     }
 
-    public boolean removerIngrediente(Ingrediente ingrediente){
+    public void removerIngrediente(Ingrediente ingrediente){
         if(precos.containsKey(ingrediente)){
             precos.remove(ingrediente);
-            return true;
         }else{
             throw new IngredienteException();
         }

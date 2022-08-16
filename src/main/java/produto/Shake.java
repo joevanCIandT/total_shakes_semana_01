@@ -1,21 +1,21 @@
 package produto;
 
+import comparator.comparatorIngrediente;
 import ingredientes.Adicional;
 import ingredientes.Base;
 import ingredientes.Fruta;
 import ingredientes.Topping;
-import comparator.comparatorAdicional;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Shake {
-    private Base base;
-    private Fruta fruta;
-    private Topping topping;
-    private List<Adicional> adicionais = new ArrayList<>();
-    private TipoTamanho  tipoTamanho;
+    private final Base base;
+    private final Fruta fruta;
+    private final Topping topping;
+    private final List<Adicional> adicionais;
+    private final TipoTamanho  tipoTamanho;
 
     public Shake(Base base, Fruta fruta, Topping topping, List<Adicional> adicionais, TipoTamanho tipoTamanho) {
         this.base = base;
@@ -48,7 +48,7 @@ public class Shake {
 
     public List<Adicional> getAdicionais() {
         if(this.adicionais != null){
-            Collections.sort(this.adicionais, new comparatorAdicional());
+            Collections.sort(this.adicionais, new comparatorIngrediente());
         }
         return this.adicionais;
     }
