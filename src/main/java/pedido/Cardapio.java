@@ -1,37 +1,63 @@
 package pedido;
 
+import comparator.comparatorIngrediente;
+import exceptions.IngredienteException;
+import exceptions.PrecoInvalidoException;
 import ingredientes.Ingrediente;
 
-import java.util.TreeMap;
+import java.util.*;
 
-public class Cardapio {
-    private TreeMap<Ingrediente,Double> precos;
+public class Cardapio{
 
-    public Cardapio(){
-        this.precos= new TreeMap<>();
+    public Cardapio(TreeMap<Ingrediente, Double> precos) {
+        this.precos = precos;
     }
 
+    private final TreeMap<Ingrediente,Double> precos;
+
+    public Cardapio(){
+        this.precos= new TreeMap<>(new comparatorIngrediente());
+    }
+
+
     public TreeMap<Ingrediente, Double> getPrecos(){
-        return this.precos;
+        return precos;
     }
 
     public void adicionarIngrediente(Ingrediente ingrediente,Double preco){
-        //TODO
+        if(preco > 0){
+            precos.put(ingrediente, preco);
+        }else{
+            throw new PrecoInvalidoException();
+        }
     }
 
-    public boolean atualizarIngrediente(Ingrediente ingrediente,Double preco){
-       //TODO
-        return true;
+    public void atualizarIngrediente(Ingrediente ingrediente, Double preco){
+        if(precos.containsKey(ingrediente)){
+            if(preco > 0){
+                precos.put(ingrediente, preco);
+            }else{
+                throw new PrecoInvalidoException();
+            }
+        }else{
+            throw new IngredienteException();
+        }
     }
 
-    public boolean removerIngrediente(Ingrediente ingrediente){
-       //TODO
-        return true;
+    public void removerIngrediente(Ingrediente ingrediente){
+        if(precos.containsKey(ingrediente)){
+            precos.remove(ingrediente);
+        }else{
+            throw new IngredienteException();
+        }
     }
 
     public Double buscarPreco(Ingrediente ingrediente){
-        //TODO
-        return 0.0;
+        if(precos.containsKey(ingrediente)){
+            return precos.get(ingrediente);
+        }else{
+            throw new IngredienteException();
+        }
     }
 
     @Override

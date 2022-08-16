@@ -1,7 +1,9 @@
 package ingredientes;
 
+import tipo.TipoTopping;
+
 public class Topping implements Adicional,Comparable<Ingrediente> {
-    private TipoTopping tipoTopping;
+    private final TipoTopping tipoTopping;
 
     public Topping(TipoTopping tipoTopping) {
         this.tipoTopping = tipoTopping;
