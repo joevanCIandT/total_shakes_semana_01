@@ -32,32 +32,14 @@ public class Pedido{
 
     public double calcularTotal(Cardapio cardapio){
 
-        double totalPedido = 0.0;
-        double totalItem;
-        double totalAdicional;
-        double totalBase;
 
-        for(ItemPedido item : this.getItens()) {
-            totalBase = calculaTotalBase(item, cardapio);
-            totalAdicional = calculaTotalAdicional(item, cardapio);
-            totalItem = totalBase + totalAdicional;
-            totalPedido = totalItem * item.getQuantidade() + totalPedido;
-        }
+        var totalPedido = this.getItens().stream()
+                .map(itemPedido ->
+                        (itemPedido.calculaValorBase(cardapio) + itemPedido.calculaValorAdicionais(cardapio))
+                                * itemPedido.getQuantidade())
+                .reduce(0.0, Double::sum);
+
         return totalPedido;
-    }
-
-    private double calculaTotalAdicional(ItemPedido item, Cardapio cardapio) {
-        double totalAdicional = 0.0;
-        for(Adicional adicional : item.getShake().getAdicionais()){
-            totalAdicional = totalAdicional + cardapio.buscarPreco(adicional);
-        }
-
-        return totalAdicional;
-    }
-
-    private double calculaTotalBase(ItemPedido item, Cardapio cardapio) {
-        var base = item.getShake().getBase();
-        return (cardapio.buscarPreco(base) * item.getShake().getTipoTamanho().multiplicador);
     }
 
     public void adicionarItemPedido(ItemPedido itemPedidoAdicionado){
